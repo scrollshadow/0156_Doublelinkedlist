@@ -34,7 +34,7 @@ public:
         // Step 2: Assign value to the data field
         newnode->noMhs = nim;
 
-        // Step 3: Insert at beginning if list is empty or nim < first node
+        // Step 3: 
         if (START == NULL || nim <= START->noMhs)
         {
             if (START != NULL && nim == START->noMhs)
