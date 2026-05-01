@@ -96,11 +96,17 @@ public:
 
         Node *current = START;
 
-        //
+        //1
         while (current != NULL && current->noMhs != rollNo)
                current = current->next;
         
-        
+        if (current == NULL)
+        {
+            cout << "Record not found" << endl;
+            return;
+        }
+
+        //2
     
     }
 }
