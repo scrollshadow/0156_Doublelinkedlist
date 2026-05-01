@@ -46,7 +46,15 @@ public:
             newNode->next = START;
 
             //5
-            if (START)
+            if (START != NULL)
+                START->prev = newNode;
+
+            //6
+            newNode->prev = NULL;
+            
+            //7
+            START = newNode;
+            return;
         }
     }
 }
