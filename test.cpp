@@ -235,7 +235,7 @@ int main()
             cout << "Invalid option" << endl;
         }
 
-        cout << "\nPress Enter to continue...";
+        cout << "\nPress Enter to continue..";
         cin.ignore();
         cin.get();
 
