@@ -53,7 +53,7 @@ public:
             return;
         }
 
-        // Step 4: Traverse to find position for insertion
+        // Step 4: 
         Node *current = START;
         while (current->next != NULL && current->next->noMhs < nim)
         {
