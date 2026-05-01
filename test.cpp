@@ -1,4 +1,3 @@
-// 1
 #include <iostream>
 #include <string>
 using namespace std;
@@ -7,6 +6,7 @@ class Node
 {
 public:
     int noMhs;
+    string nama;
     Node *next;
     Node *prev;
 };
@@ -25,88 +25,82 @@ public:
     void addNode()
     {
         int nim;
-        cout << "\nEnter the roll number of student: ";
+        cout << "Enter the roll number of the student: ";
         cin >> nim;
 
-        //1
-        Node *newNode = new Node();
+        // Step 1: Allocate memory for new node
+        Node *newnode = new Node();
 
-        //2
-        newNode->noMhs = nim;
+        // Step 2: Assign value to the data field
+        newnode->noMhs = nim;
 
-        //3
-        if (START != NULL || nim <= START->noMhs)
+        // Step 3: Insert at beginning if list is empty or nim < first node
+        if (START == NULL || nim <= START->noMhs)
         {
             if (START != NULL && nim == START->noMhs)
             {
-                cout << "\nDuplicate number not allowed" << endl;
+                cout << "Duplicate roll numbers not allowed" << endl;
                 return;
             }
-            //4
-            newNode->next = START;
 
-            //5
+            newnode->next = START;
+
             if (START != NULL)
-                START->prev = newNode;
+                START->prev = newnode;
 
-            //6
-            newNode->prev = NULL;
-            
-            //7
-            START = newNode;
+            newnode->prev = NULL;
+            START = newnode;
             return;
         }
 
-        //
-        //
+        // Step 4: Traverse to find position for insertion
         Node *current = START;
-        while (current->next != NULL && current->next->noMhs < nim) 
+        while (current->next != NULL && current->next->noMhs < nim)
         {
             current = current->next;
         }
 
         if (current->next != NULL && nim == current->next->noMhs)
         {
-            cout << "\nDuplicate roll numbers not allowed" << endl;
+            cout << "Duplicate roll numbers not allowed" << endl;
             return;
         }
 
-        //9
-        newNode->next = current->next;
-        newNode->prev = current;
+        Node *nextnode = current->next;
+        newnode->next = nextnode;
+        newnode->prev = current;
 
-        //
-        if (current->next != NULL)
-            current->next->prev = newNode;
+        if (nextnode != NULL)
+            nextnode->prev = newnode;
 
-        current->next = newNode;    
+        current->next = newnode;
     }
 
-    void hapus()
+    void deleteNode()
     {
         if (START == NULL)
         {
-            cout << "\nList is empty" << endl;
+            cout << "List is empty" << endl;
             return;
         }
 
-        cout << "\nEnter the roll number of the student whose record is to be delete: ";
         int rollNo;
+        cout << "Enter the roll number of the student whose record is to be deleted: ";
         cin >> rollNo;
 
         Node *current = START;
 
-        //1
         while (current != NULL && current->noMhs != rollNo)
-               current = current->next;
-        
+        {
+            current = current->next;
+        }
+
         if (current == NULL)
         {
             cout << "Record not found" << endl;
             return;
         }
 
-        //2
         if (current == START)
         {
             START = current->next;
@@ -115,13 +109,137 @@ public:
         }
         else
         {
-            //3
-            current->prev->next = current->next;
-
-            //4
             if (current->next != NULL)
                 current->next->prev = current->prev;
+
+            if (current->prev != NULL)
+                current->prev->next = current->next;
         }
-    
+
+        delete current;
+        cout << "Record with roll number " << rollNo << " deleted" << endl;
     }
+
+    void traverse()
+    {
+        if (START == NULL)
+        {
+            cout << "List is empty" << endl;
+            return;
+        }
+
+        Node *currentnode = START;
+
+        cout << "Records in ascending order of roll number are:" << endl;
+
+        while (currentnode != NULL)
+        {
+            cout << currentnode->noMhs << " ";
+            currentnode = currentnode->next;
+        }
+        cout << endl;
+    }
+
+    void reverse()
+    {
+        if (START == NULL)
+        {
+            cout << "List is empty" << endl;
+            return;
+        }
+
+        Node *currentnode = START;
+
+        while (currentnode->next != NULL)
+        {
+            currentnode = currentnode->next;
+        }
+
+        cout << "Records in descending order of roll number are:" << endl;
+
+        while (currentnode != NULL)
+        {
+            cout << currentnode->noMhs << " ";
+            currentnode = currentnode->prev;
+        }
+        cout << endl;
+    }
+
+    void search()
+    {
+        if (START == NULL)
+        {
+            cout << "List is empty" << endl;
+            return;
+        }
+
+        int rollNo;
+        cout << "Enter the roll number to be searched: ";
+        cin >> rollNo;
+
+        Node *current = START;
+
+        while (current != NULL && current->noMhs != rollNo)
+        {
+            current = current->next;
+        }
+
+        if (current == NULL)
+        {
+            cout << "Record not found" << endl;
+        }
+        else
+        {
+            cout << "Record found" << endl;
+            cout << "Roll number: " << current->noMhs << endl;
+        }
+    }
+};
+
+int main()
+{
+    DoubleLinkedList list;
+    char choice;
+
+    do
+    {
+        cout << "\n1. Add Record";
+        cout << "\n2. Delete Record";
+        cout << "\n3. Traverse (Ascending)";
+        cout << "\n4. Reverse (Descending)";
+        cout << "\n5. Search Record";
+        cout << "\n6. Exit";
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case '1':
+            list.addNode();
+            break;
+        case '2':
+            list.deleteNode();
+            break;
+        case '3':
+            list.traverse();
+            break;
+        case '4':
+            list.reverse();
+            break;
+        case '5':
+            list.search();
+            break;
+        case '6':
+            return 0;
+        default:
+            cout << "Invalid option" << endl;
+        }
+
+        cout << "\nPress Enter to continue...";
+        cin.ignore();
+        cin.get();
+
+    } while (choice != '6');
+
+    return 0;
 }
