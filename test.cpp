@@ -107,6 +107,21 @@ public:
         }
 
         //2
+        if (current == START)
+        {
+            START = current->next;
+            if (START != NULL)
+                START->prev = NULL;
+        }
+        else
+        {
+            //3
+            current->prev->next = current->next;
+
+            //4
+            if (current->next != NULL)
+                current->next->prev = current->prev;
+        }
     
     }
 }
