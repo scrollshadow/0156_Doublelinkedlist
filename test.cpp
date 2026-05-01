@@ -95,5 +95,12 @@ public:
         cin >> rollNo;
 
         Node *current = START;
+
+        //
+        while (current != NULL && current->noMhs != rollNo)
+               current = current->next;
+        
+        
+    
     }
 }
