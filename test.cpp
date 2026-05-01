@@ -1,3 +1,4 @@
+// 1
 #include <iostream>
 #include <string>
 using namespace std;
@@ -14,4 +15,19 @@ class DoubleLinkedList
 {
 private:
     Node *START;
+
+public:
+    DoubleLinkedList()
+    {
+        START = NULL;
+    }
+
+    void addNode()
+    {
+        int nim;
+        cout << "\nEnter the roll number of student: ";
+        cin >> nim;
+
+        //2
+    }
 }
